@@ -18,7 +18,13 @@ numero_int = int(numero_str)
 print(f'tabla del {numero_str} mediante ciclo FOR')
 for i in range(1,11):
     print(f'{numero_int} * {i} = {numero_int * i}')
+
+
+print(f'tabla del {numero_str} mediante ciclo while')
+numero = 1
+while numero <= 10:
+    print(f'{numero_int} x {numero} = {numero_int * numero}')
+    numero +=1    
     
 
-    
-    
+
