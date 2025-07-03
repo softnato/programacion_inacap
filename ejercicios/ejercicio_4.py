@@ -1,73 +1,117 @@
-#crear una funcion que permita convertir temperatura de kelvin a celcius
-# c° = k - 273.15
+# Crear una función que permita convertir temperatura de una escala a otra
+# El valor de temperatura, la escala inicial y la final serán definidas por el usuario.
 
+# Celsius a Fahrenheit	    (95*°C)+32 ‍
+# Farenheit a Celsius	    59*(°F−32)
+# Celsius a Kelvin	        °C+273 ‍
+# Kelvin a Celsius	        K−273
+# Fahrenheit a Kelvin       (59*(°F−32))+273
+# Kelvin a Fahrenheit       ((K-273)*95)+32
 
-def fahrenheit_celcius(temperatura):
+def celsius_fahrenheit(temperatura):
     try:
-        resultado = 59 * temperatura - 32
+        resultado = 9/5 * temperatura + 32
         return resultado
     except:
-        print('valor ingresado NO corresponde')
+        print('Valor ingresado NO corresponde...')
 
-def celcius_kelvin(temperatura):
+def fahrenheit_celsius(temperatura):
     try:
-        resultado = temperatura + 273
+        resultado = 5/9 * temperatura - 32
         return resultado
     except:
-        print('valor ingresado NO corresponde')
+        print('Valor ingresado NO corresponde...')
 
-def celcius_fahrenheit(temperatura):
+def celsius_kelvin(temperatura):
     try:
-        resultado = 95* temperatura + 32
+        resultado = temperatura + 273.15
         return resultado
     except:
-        print('valor ingresado NO corresponde')
+        print('Valor ingresado NO corresponde...')
 
-def kelvin_celcius(temperatura) :
+def kelvin_celsius(temperatura):
     try:
-     resultado = temperatura - 273.15
-     return resultado
-    except:
-     print('valor ingresado NO corresponde')
-
-def kelvin_fahrenheit(temperatura): 
-    try:
-        celcius = kelvin_celcius(temperatura)
-        resultado = celcius_fahrenheit(celcius)
+        resultado = temperatura - 273.15
         return resultado
     except:
-        print('valor ingresado NO corresponde')
+        print('Valor ingresado NO corresponde...')
 
 def fahrenheit_kelvin(temperatura):
     try:
-        celcius = fahrenheit_celcius(temperatura)
-        resultado = celcius_kelvin(celcius)
+        celsius = fahrenheit_celsius(temperatura)
+        resultado = celsius_kelvin(celsius)
+        return resultado
+    except:        
+        print('Valor ingresado NO corresponde...')
+
+def kelvin_fahrenheit(temperatura):
+    try:
+        celsius = kelvin_celsius(temperatura)
+        resultado = celsius_fahrenheit(celsius)
         return resultado
     except:
-        print('valor ingresado NO corresponde')
+        print('Valor ingresado NO corresponde...')
+
+def menu_conversiones():
+        print('1.- Kelvin')
+        print('2.- Celsius')
+        print('3.- Fahrenheit')
 
 def interfaz_usuario():
-    print('Sistema conversor de temperaturas')
     print('=================================')
+    print('Sistema Conversor de Temperaturas')
+    print('=================================')
+    print()
     while True:
-        print('¿desde que escala de temperatura desea convertir?')
-        print('1.- kelvin')
-        print('2.- Celcius')
-        print('3.- Fahrenheit')
-        escala_inicial = input('seleccione su opcion [1-3] : ')
-        print('¿A que escala de temperatura desea convertir?')
-        print('1.- kelvin')
-        print('2.- Celcius')
-        print('3.- Fahrenheit')
-        escala_final= input('seleccione su opcion [1-3] : ')
-        temperatura_usuario = input('¿Cual es su temperatura?')
+        print('¿Desde qué escala de temperatura desea convertir?')
+        menu_conversiones()
+        escala_inicial = input('Seleccione su opción [1-3]: ')
+        print()
+        print('¿A qué escala de temperatura desea convertir?')
+        menu_conversiones()
+        escala_final = input('Seleccione su opción [1-3]: ')
+        print()
+        temperatura_usuario = input('Ingrese temperatura a convertir: ')
         try:
+            resultado = 0
+            inicio = ''
+            final = ''
             if temperatura_usuario != None:
                 temperatura = float(temperatura_usuario)
-                if escala_inicial == '1' and escala_final =='2' :
-                    resultado = kelvin_celcius(temperatura)
-            print(f'{temperatura_usuario}{escala_inicial} = {resultado} {escala_final}')
+                if escala_inicial == '1' and escala_final == '2':
+                    inicio = 'K'
+                    final = '°C'
+                    resultado = kelvin_celsius(temperatura)
+                elif escala_inicial == '1' and escala_final == '3':
+                    inicio = 'K'
+                    final = '°F'
+                    resultado = kelvin_fahrenheit(temperatura)                    
+                elif escala_inicial == '2' and escala_final == '1':
+                    inicio = '°C'
+                    final = 'K'
+                    resultado = celsius_kelvin(temperatura)                    
+                elif escala_inicial == '2' and escala_final == '3':
+                    inicio = '°C'
+                    final = '°F'
+                    resultado = celsius_fahrenheit(temperatura)                    
+                elif escala_inicial == '3' and escala_final == '1':
+                    inicio = '°F'
+                    final = 'K'
+                    resultado = fahrenheit_kelvin(temperatura)                    
+                elif escala_inicial == '3' and escala_final == '2':
+                    inicio = '°F'
+                    final = '°C'
+                    resultado = fahrenheit_celsius(temperatura)
+                else:
+                    print('Opciones deben ser distintas... Intente nuevamente')
+            if resultado != 0:
+                print(f'{temperatura_usuario}{inicio} = {resultado}{final}')
+                print()
+            continuar = input('¿Desea convertir otra temperatura [S-N]? ')
+            print()
+            if continuar.lower() == 'no' or continuar.lower() == 'n':
+                break
         except:
-            print('valor ingresado No corresponde....')
+            print('Valor ingresado NO corresponde...')
 
 interfaz_usuario()
